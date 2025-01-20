@@ -1,7 +1,22 @@
 name: My First Workflow
 on:
+  # Execute only on 'push' to the 'main' branch
   push:
     branches: 
       - main
+  # Thid trigger enables us to trigger this whole workflow *manually*
   workflow_dispatch:
-    
+
+jobs:
+  MyFirstJob:
+    # Execute the job on the latest Ubuntu machine hosted by GitHub
+    runs-on: ubuntu-latest
+
+    steps: 
+      - run: printf "Hello World!"
+      - name: Checkout
+        uses: actions/checkout@v4.2.2
+      - name: List files in repository
+        run: |
+          printf "The repository ${{ github.repository }} contains the following files:"
+          tree
